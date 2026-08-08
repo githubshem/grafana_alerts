@@ -1,0 +1,12 @@
+# Copy to teams_webhook.local.yaml to override locally (that file is gitignored).
+# Prefer setting GRAFANA_TEAMS_WEBHOOK_URL in .env for local runs.
+webhook:
+  env_var: GRAFANA_TEAMS_WEBHOOK_URL
+  source_order:
+    - env
+    - aws_secrets_manager
+  aws_secrets_manager:
+    enabled: true
+    secret_name: grafana-alerts/provisioning
+    secret_key: webhook_url
+    region: us-west-1

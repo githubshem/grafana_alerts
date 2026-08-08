@@ -1,0 +1,1927 @@
+{
+  "title": "alerts-rds",
+  "folderUid": "example-folder",
+  "interval": 300,
+  "rules": [
+    {
+      "uid": "9923aa357375",
+      "title": "alerts-rds-cpu-warning-db-primary-writer",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-primary-writer"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "CPUUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    70.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "RDS CPU warning for db-primary-writer",
+        "description": "CloudWatch AWS/RDS/CPUUtilization is gt 70.0 for db-primary-writer.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "21",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-primary&var-db_instance=db-primary-writer&orgId=1&viewPanel=21",
+        "runbook": "Check rds db-primary-writer in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 70.0 over 3m (AWS/RDS/CPUUtilization, Average)",
+        "metric": "CPUUtilization",
+        "threshold": "Above 70%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "warning",
+        "resource": "db-primary-writer",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "dcd5d6aa2e72",
+      "title": "alerts-rds-cpu-warning-db-auth",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-auth"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "CPUUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    70.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "RDS CPU warning for db-auth",
+        "description": "CloudWatch AWS/RDS/CPUUtilization is gt 70.0 for db-auth.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "21",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-auth&var-db_instance=db-auth&orgId=1&viewPanel=21",
+        "runbook": "Check rds db-auth in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 70.0 over 3m (AWS/RDS/CPUUtilization, Average)",
+        "metric": "CPUUtilization",
+        "threshold": "Above 70%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "warning",
+        "resource": "db-auth",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "65630546524a",
+      "title": "alerts-rds-cpu-critical-db-primary-writer",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-primary-writer"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "CPUUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    90.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "RDS CPU critical for db-primary-writer",
+        "description": "CloudWatch AWS/RDS/CPUUtilization is gt 90.0 for db-primary-writer.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "21",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-primary&var-db_instance=db-primary-writer&orgId=1&viewPanel=21",
+        "runbook": "Check rds db-primary-writer in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 90.0 over 2m (AWS/RDS/CPUUtilization, Average)",
+        "metric": "CPUUtilization",
+        "threshold": "Above 90%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "critical",
+        "resource": "db-primary-writer",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "60d7f20fa83b",
+      "title": "alerts-rds-cpu-critical-db-auth",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-auth"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "CPUUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    90.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "RDS CPU critical for db-auth",
+        "description": "CloudWatch AWS/RDS/CPUUtilization is gt 90.0 for db-auth.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "21",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-auth&var-db_instance=db-auth&orgId=1&viewPanel=21",
+        "runbook": "Check rds db-auth in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 90.0 over 2m (AWS/RDS/CPUUtilization, Average)",
+        "metric": "CPUUtilization",
+        "threshold": "Above 90%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "critical",
+        "resource": "db-auth",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "b63d80f01a61",
+      "title": "alerts-rds-freeable-memory-warning-db-primary-writer",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-primary-writer"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "FreeableMemory",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "lt",
+                  "params": [
+                    3435973836.8
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "RDS low freeable memory warning for db-primary-writer",
+        "description": "CloudWatch AWS/RDS/FreeableMemory is lt 3435973836.8 for db-primary-writer.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-primary&var-db_instance=db-primary-writer&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-primary-writer in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "lt 3435973836.8 over 3m (AWS/RDS/FreeableMemory, Average)",
+        "metric": "FreeableMemory",
+        "threshold": "Below 3.20 GB",
+        "unit": "bytes",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "warning",
+        "resource": "db-primary-writer",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "401996462118",
+      "title": "alerts-rds-freeable-memory-warning-db-auth",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-auth"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "FreeableMemory",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "lt",
+                  "params": [
+                    858993459.2
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "RDS low freeable memory warning for db-auth",
+        "description": "CloudWatch AWS/RDS/FreeableMemory is lt 858993459.2 for db-auth.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-auth&var-db_instance=db-auth&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-auth in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "lt 858993459.2 over 3m (AWS/RDS/FreeableMemory, Average)",
+        "metric": "FreeableMemory",
+        "threshold": "Below 819.20 MB",
+        "unit": "bytes",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "warning",
+        "resource": "db-auth",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "5b977588bcf8",
+      "title": "alerts-rds-freeable-memory-critical-db-primary-writer",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-primary-writer"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "FreeableMemory",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "lt",
+                  "params": [
+                    1717986918.4
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "RDS low freeable memory critical for db-primary-writer",
+        "description": "CloudWatch AWS/RDS/FreeableMemory is lt 1717986918.4 for db-primary-writer.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-primary&var-db_instance=db-primary-writer&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-primary-writer in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "lt 1717986918.4 over 2m (AWS/RDS/FreeableMemory, Average)",
+        "metric": "FreeableMemory",
+        "threshold": "Below 1.60 GB",
+        "unit": "bytes",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "critical",
+        "resource": "db-primary-writer",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "6f8178f11e5e",
+      "title": "alerts-rds-freeable-memory-critical-db-auth",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-auth"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "FreeableMemory",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "lt",
+                  "params": [
+                    429496729.6
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "RDS low freeable memory critical for db-auth",
+        "description": "CloudWatch AWS/RDS/FreeableMemory is lt 429496729.6 for db-auth.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-auth&var-db_instance=db-auth&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-auth in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "lt 429496729.6 over 2m (AWS/RDS/FreeableMemory, Average)",
+        "metric": "FreeableMemory",
+        "threshold": "Below 409.60 MB",
+        "unit": "bytes",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "critical",
+        "resource": "db-auth",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "cf14e3f125d9",
+      "title": "alerts-rds-connections-warning-db-primary-writer",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-primary-writer"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "DatabaseConnections",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    100.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "RDS high connections warning for db-primary-writer",
+        "description": "CloudWatch AWS/RDS/DatabaseConnections is gt 100.0 for db-primary-writer.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-primary&var-db_instance=db-primary-writer&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-primary-writer in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 100.0 over 3m (AWS/RDS/DatabaseConnections, Average)",
+        "metric": "DatabaseConnections",
+        "threshold": "Above 100 connections",
+        "unit": "count",
+        "unit_label": "connections",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "warning",
+        "resource": "db-primary-writer",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "c2273931b122",
+      "title": "alerts-rds-connections-warning-db-auth",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-auth"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "DatabaseConnections",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    100.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "RDS high connections warning for db-auth",
+        "description": "CloudWatch AWS/RDS/DatabaseConnections is gt 100.0 for db-auth.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-auth&var-db_instance=db-auth&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-auth in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 100.0 over 3m (AWS/RDS/DatabaseConnections, Average)",
+        "metric": "DatabaseConnections",
+        "threshold": "Above 100 connections",
+        "unit": "count",
+        "unit_label": "connections",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "warning",
+        "resource": "db-auth",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "8395db5ea29e",
+      "title": "alerts-rds-connections-critical-db-primary-writer",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-primary-writer"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "DatabaseConnections",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    200.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "RDS high connections critical for db-primary-writer",
+        "description": "CloudWatch AWS/RDS/DatabaseConnections is gt 200.0 for db-primary-writer.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-primary&var-db_instance=db-primary-writer&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-primary-writer in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 200.0 over 2m (AWS/RDS/DatabaseConnections, Average)",
+        "metric": "DatabaseConnections",
+        "threshold": "Above 200 connections",
+        "unit": "count",
+        "unit_label": "connections",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "critical",
+        "resource": "db-primary-writer",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "564510b9d673",
+      "title": "alerts-rds-connections-critical-db-auth",
+      "ruleGroup": "alerts-rds",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "DBInstanceIdentifier": "db-auth"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "DatabaseConnections",
+            "metricQueryType": 0,
+            "namespace": "AWS/RDS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    200.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "RDS high connections critical for db-auth",
+        "description": "CloudWatch AWS/RDS/DatabaseConnections is gt 200.0 for db-auth.",
+        "__dashboardUid__": "example-rds",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-rds/aws-rds?var-region=us-west-1&var-db_cluster=db-auth&var-db_instance=db-auth&orgId=1&viewPanel=4",
+        "runbook": "Check rds db-auth in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 200.0 over 2m (AWS/RDS/DatabaseConnections, Average)",
+        "metric": "DatabaseConnections",
+        "threshold": "Above 200 connections",
+        "unit": "count",
+        "unit_label": "connections",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "rds",
+        "severity": "critical",
+        "resource": "db-auth",
+        "apply_batch": "4",
+        "memory_baseline": "needs_baseline",
+        "storage_baseline": "needs_baseline"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    }
+  ]
+}

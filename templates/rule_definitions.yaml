@@ -1,0 +1,550 @@
+# Grafana alert rule definitions.
+# Expanded across inventory/services.yaml by apply_rules.py.
+#
+# Design total depends on inventory size (demo inventory is intentionally small).
+# APPLY IN STAGED BATCHES: availability, ALB/NLB, data stores, then ECS per cluster.
+#
+# Explicitly omitted:
+#   - api_alb duplicate rules (same ALB metrics)
+#   - Aurora FreeStorageSpace
+#   - ECS wildcard ClusterName=* / ServiceName=*
+#   - out-of-scope RDS / Redis / RabbitMQ
+#   - Legacy release-tagged resources
+#   - idle ECS services (desired=0 and running=0)
+
+defaults:
+  for_duration: 3m
+  period: 300
+  statistic: Average
+  no_data_state: NoData
+  exec_err_state: Error
+  contact_point: engineering-alerts
+  labels:
+    team: engineering
+    region: us-west-1
+    managed_by: provisioning
+
+apply_batches:
+  1:
+    description: ALB + NLB first
+    estimated_rules: 44
+  2:
+    description: ECS canary services
+    estimated_rules: 4
+  3:
+    description: ECS per cluster
+    estimated_rules: 516
+  4:
+    description: RDS + Redis + MQ
+    estimated_rules: 108
+
+rules:
+  # --- ALB (Batch 1) ---
+  - id: alb-5xx-warning
+    resource_type: alb
+    apply_batch: 1
+    namespace: AWS/ApplicationELB
+    metric: HTTPCode_Target_5XX_Count
+    statistic: Sum
+    threshold: 10
+    severity: warning
+    rule_group: alerts-alb
+    dashboard: alb
+    panel: 1
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "ALB 5xx warning for {resource}"
+
+  - id: alb-5xx-critical
+    resource_type: alb
+    apply_batch: 1
+    namespace: AWS/ApplicationELB
+    metric: HTTPCode_Target_5XX_Count
+    statistic: Sum
+    threshold: 50
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-alb
+    dashboard: alb
+    panel: 2
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "ALB 5xx critical for {resource}"
+
+  - id: alb-latency-p99-warning
+    resource_type: alb
+    apply_batch: 1
+    namespace: AWS/ApplicationELB
+    metric: TargetResponseTime
+    statistic: p99
+    threshold: 3
+    severity: warning
+    rule_group: alerts-alb
+    dashboard: alb
+    panel: 4
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "ALB p99 latency warning for {resource}"
+
+  - id: alb-latency-p99-critical
+    resource_type: alb
+    apply_batch: 1
+    namespace: AWS/ApplicationELB
+    metric: TargetResponseTime
+    statistic: p99
+    threshold: 5
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-alb
+    dashboard: alb
+    panel: 4
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "ALB p99 latency critical for {resource}"
+
+  - id: alb-unhealthy-warning
+    resource_type: alb
+    apply_batch: 1
+    namespace: AWS/ApplicationELB
+    metric: UnHealthyHostCount
+    threshold: 0.5
+    severity: warning
+    rule_group: alerts-alb
+    dashboard: alb
+    panel: 3
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "ALB unhealthy hosts warning for {resource}"
+
+  - id: alb-unhealthy-critical
+    resource_type: alb
+    apply_batch: 1
+    namespace: AWS/ApplicationELB
+    metric: UnHealthyHostCount
+    threshold: 1.5
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-availability-critical
+    dashboard: alb
+    panel: 3
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "ALB unhealthy hosts critical for {resource}"
+    threshold_explanation: ">=2 unhealthy targets for 2m; >=1 if LB has single target"
+
+  # --- NLB (Batch 1) ---
+  - id: nlb-unhealthy-warning
+    resource_type: nlb
+    apply_batch: 1
+    namespace: AWS/NetworkELB
+    metric: UnHealthyHostCount
+    threshold: 0.5
+    severity: warning
+    rule_group: alerts-nlb
+    dashboard: alb
+    panel: 7
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "NLB unhealthy targets warning for {resource}"
+
+  - id: nlb-unhealthy-critical
+    resource_type: nlb
+    apply_batch: 1
+    namespace: AWS/NetworkELB
+    metric: UnHealthyHostCount
+    threshold: 1.5
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-availability-critical
+    dashboard: alb
+    panel: 7
+    dimension_keys:
+      LoadBalancer: cw_dimension
+    summary: "NLB unhealthy targets critical for {resource}"
+
+  # --- ECS per-service (Batch 2 canary, Batch 3 per cluster) ---
+  - id: ecs-cpu-warning
+    resource_type: ecs_service
+    apply_batch: 2
+    namespace: AWS/ECS
+    metric: CPUUtilization
+    threshold: 70
+    severity: warning
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 1
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS CPU warning for {service} on {cluster}"
+
+  - id: ecs-cpu-critical
+    resource_type: ecs_service
+    apply_batch: 2
+    namespace: AWS/ECS
+    metric: CPUUtilization
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 2
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS CPU critical for {service} on {cluster}"
+
+  - id: ecs-memory-warning
+    resource_type: ecs_service
+    apply_batch: 2
+    namespace: AWS/ECS
+    metric: MemoryUtilization
+    threshold: 70
+    severity: warning
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 6
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS memory warning for {service} on {cluster}"
+
+  - id: ecs-memory-critical
+    resource_type: ecs_service
+    apply_batch: 2
+    namespace: AWS/ECS
+    metric: MemoryUtilization
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 7
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS memory critical for {service} on {cluster}"
+
+  - id: ecs-cpu-warning-batch3
+    resource_type: ecs_service
+    apply_batch: 3
+    namespace: AWS/ECS
+    metric: CPUUtilization
+    threshold: 70
+    severity: warning
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 1
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS CPU warning for {service} on {cluster}"
+
+  - id: ecs-cpu-critical-batch3
+    resource_type: ecs_service
+    apply_batch: 3
+    namespace: AWS/ECS
+    metric: CPUUtilization
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 2
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS CPU critical for {service} on {cluster}"
+
+  - id: ecs-memory-warning-batch3
+    resource_type: ecs_service
+    apply_batch: 3
+    namespace: AWS/ECS
+    metric: MemoryUtilization
+    threshold: 70
+    severity: warning
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 6
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS memory warning for {service} on {cluster}"
+
+  - id: ecs-memory-critical-batch3
+    resource_type: ecs_service
+    apply_batch: 3
+    namespace: AWS/ECS
+    metric: MemoryUtilization
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group_template: "alerts-ecs-{cluster}"
+    dashboard: ecs
+    panel: 7
+    dimension_keys:
+      ClusterName: cluster
+      ServiceName: service
+    summary: "ECS memory critical for {service} on {cluster}"
+
+  # --- RDS (Batch 4) ---
+  # FreeStorageSpace intentionally omitted for Aurora.
+  - id: rds-cpu-warning
+    resource_type: rds
+    apply_batch: 4
+    namespace: AWS/RDS
+    metric: CPUUtilization
+    threshold: 70
+    severity: warning
+    rule_group: alerts-rds
+    dashboard: rds
+    panel: 21
+    dimension_keys:
+      DBInstanceIdentifier: instance
+    summary: "RDS CPU warning for {resource}"
+
+  - id: rds-cpu-critical
+    resource_type: rds
+    apply_batch: 4
+    namespace: AWS/RDS
+    metric: CPUUtilization
+    threshold: 90
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-rds
+    dashboard: rds
+    panel: 21
+    dimension_keys:
+      DBInstanceIdentifier: instance
+    summary: "RDS CPU critical for {resource}"
+
+  - id: rds-freeable-memory-warning
+    resource_type: rds
+    apply_batch: 4
+    namespace: AWS/RDS
+    metric: FreeableMemory
+    threshold_from_resource: computed_warning_freeable_memory_bytes
+    evaluator: lt
+    severity: warning
+    skip_unless_baseline: memory
+    rule_group: alerts-rds
+    dashboard: rds
+    panel: 4
+    dimension_keys:
+      DBInstanceIdentifier: instance
+    summary: "RDS low freeable memory warning for {resource}"
+
+  - id: rds-freeable-memory-critical
+    resource_type: rds
+    apply_batch: 4
+    namespace: AWS/RDS
+    metric: FreeableMemory
+    threshold_from_resource: computed_critical_freeable_memory_bytes
+    evaluator: lt
+    severity: critical
+    for_duration: 2m
+    skip_unless_baseline: memory
+    rule_group: alerts-rds
+    dashboard: rds
+    panel: 4
+    dimension_keys:
+      DBInstanceIdentifier: instance
+    summary: "RDS low freeable memory critical for {resource}"
+
+  - id: rds-connections-warning
+    resource_type: rds
+    apply_batch: 4
+    namespace: AWS/RDS
+    metric: DatabaseConnections
+    threshold: 100
+    severity: warning
+    rule_group: alerts-rds
+    dashboard: rds
+    panel: 4
+    dimension_keys:
+      DBInstanceIdentifier: instance
+    summary: "RDS high connections warning for {resource}"
+
+  - id: rds-connections-critical
+    resource_type: rds
+    apply_batch: 4
+    namespace: AWS/RDS
+    metric: DatabaseConnections
+    threshold: 200
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-rds
+    dashboard: rds
+    panel: 4
+    dimension_keys:
+      DBInstanceIdentifier: instance
+    summary: "RDS high connections critical for {resource}"
+
+  # --- Redis (Batch 4) ---
+  - id: redis-cpu-critical
+    resource_type: redis
+    apply_batch: 4
+    namespace: AWS/ElastiCache
+    metric: CPUUtilization
+    threshold: 90
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-redis
+    dashboard: redis
+    panel: 60
+    dimension_keys:
+      CacheClusterId: cache_cluster_id
+    summary: "Redis CPU critical for {resource}"
+
+  - id: redis-engine-cpu-critical
+    resource_type: redis
+    apply_batch: 4
+    namespace: AWS/ElastiCache
+    metric: EngineCPUUtilization
+    threshold: 90
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-redis
+    dashboard: redis
+    panel: 60
+    dimension_keys:
+      CacheClusterId: cache_cluster_id
+    summary: "Redis engine CPU critical for {resource}"
+
+  - id: redis-memory-warning
+    resource_type: redis
+    apply_batch: 4
+    namespace: AWS/ElastiCache
+    metric: DatabaseMemoryUsagePercentage
+    threshold: 80
+    severity: warning
+    rule_group: alerts-redis
+    dashboard: redis
+    panel: 60
+    dimension_keys:
+      CacheClusterId: cache_cluster_id
+    summary: "Redis memory warning for {resource}"
+
+  - id: redis-memory-critical
+    resource_type: redis
+    apply_batch: 4
+    namespace: AWS/ElastiCache
+    metric: DatabaseMemoryUsagePercentage
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-redis
+    dashboard: redis
+    panel: 60
+    dimension_keys:
+      CacheClusterId: cache_cluster_id
+    summary: "Redis memory critical for {resource}"
+
+  - id: redis-evictions-warning
+    resource_type: redis
+    apply_batch: 4
+    namespace: AWS/ElastiCache
+    metric: Evictions
+    statistic: Sum
+    threshold: 1
+    severity: warning
+    rule_group: alerts-redis
+    dashboard: redis
+    panel: 60
+    dimension_keys:
+      CacheClusterId: cache_cluster_id
+    summary: "Redis evictions detected for {resource}"
+
+  # --- Amazon MQ (Batch 4) ---
+  - id: mq-cpu-warning
+    resource_type: mq
+    apply_batch: 4
+    namespace: AWS/AmazonMQ
+    metric: SystemCpuUtilization
+    threshold: 70
+    severity: warning
+    rule_group: alerts-mq
+    dashboard: mq
+    panel: 1
+    dimension_keys:
+      Broker: name
+    summary: "MQ CPU warning for {resource}"
+
+  - id: mq-cpu-critical
+    resource_type: mq
+    apply_batch: 4
+    namespace: AWS/AmazonMQ
+    metric: SystemCpuUtilization
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-mq
+    dashboard: mq
+    panel: 1
+    dimension_keys:
+      Broker: name
+    summary: "MQ CPU critical for {resource}"
+
+  - id: mq-connections-warning
+    resource_type: mq
+    apply_batch: 4
+    namespace: AWS/AmazonMQ
+    metric: ConnectionCount
+    threshold: 500
+    severity: warning
+    rule_group: alerts-mq
+    dashboard: mq
+    panel: 1
+    dimension_keys:
+      Broker: name
+    summary: "MQ high connection count warning for {resource}"
+
+  - id: mq-connections-critical
+    resource_type: mq
+    apply_batch: 4
+    namespace: AWS/AmazonMQ
+    metric: ConnectionCount
+    threshold: 1000
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-mq
+    dashboard: mq
+    panel: 1
+    dimension_keys:
+      Broker: name
+    summary: "MQ high connection count critical for {resource}"
+
+  - id: mq-memory-warning
+    resource_type: mq
+    apply_batch: 4
+    namespace: AWS/AmazonMQ
+    metric: RabbitMQMemUsed
+    query_mode: metric_math_ratio
+    metric_ratio_denominator: RabbitMQMemLimit
+    threshold: 70
+    severity: warning
+    rule_group: alerts-mq
+    dashboard: mq
+    panel: 2
+    dimension_keys:
+      Broker: name
+    summary: "MQ memory warning for {resource}"
+    threshold_explanation: "RabbitMQMemUsed / RabbitMQMemLimit > 70%"
+
+  - id: mq-memory-critical
+    resource_type: mq
+    apply_batch: 4
+    namespace: AWS/AmazonMQ
+    metric: RabbitMQMemUsed
+    query_mode: metric_math_ratio
+    metric_ratio_denominator: RabbitMQMemLimit
+    threshold: 85
+    severity: critical
+    for_duration: 2m
+    rule_group: alerts-mq
+    dashboard: mq
+    panel: 2
+    dimension_keys:
+      Broker: name
+    summary: "MQ memory critical for {resource}"
+    threshold_explanation: "RabbitMQMemUsed / RabbitMQMemLimit > 85%"

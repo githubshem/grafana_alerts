@@ -1,0 +1,165 @@
+{
+  "title": "alerts-nlb",
+  "folderUid": "example-folder",
+  "interval": 300,
+  "rules": [
+    {
+      "uid": "45209194ff94",
+      "title": "alerts-nlb-unhealthy-warning-nlb-infra",
+      "ruleGroup": "alerts-nlb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "net/nlb-infra/0000000000000000"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "UnHealthyHostCount",
+            "metricQueryType": 0,
+            "namespace": "AWS/NetworkELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    0.5
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "NLB unhealthy targets warning for nlb-infra",
+        "description": "CloudWatch AWS/NetworkELB/UnHealthyHostCount is gt 0.5 for nlb-infra.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "7",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=net%2Fnlb-infra%2F0000000000000000&orgId=1&viewPanel=7",
+        "runbook": "Check nlb nlb-infra in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 0.5 over 3m (AWS/NetworkELB/UnHealthyHostCount, Average)",
+        "metric": "UnHealthyHostCount",
+        "threshold": "At least 1 unhealthy target",
+        "unit": "count",
+        "unit_label": "unhealthy targets",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "nlb",
+        "severity": "warning",
+        "resource": "nlb-infra",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    }
+  ]
+}

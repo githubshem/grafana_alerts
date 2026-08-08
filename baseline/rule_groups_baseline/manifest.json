@@ -1,0 +1,56 @@
+[
+  {
+    "group": "alerts-alb",
+    "rules": 10,
+    "interval": 300,
+    "file": "alerts-alb.json"
+  },
+  {
+    "group": "alerts-availability-critical",
+    "rules": 3,
+    "interval": 60,
+    "file": "alerts-availability-critical.json"
+  },
+  {
+    "group": "alerts-ecs-app-alpha",
+    "rules": 8,
+    "interval": 300,
+    "file": "alerts-ecs-app-alpha.json"
+  },
+  {
+    "group": "alerts-ecs-app-beta",
+    "rules": 8,
+    "interval": 300,
+    "file": "alerts-ecs-app-beta.json"
+  },
+  {
+    "group": "alerts-ecs-infra",
+    "rules": 4,
+    "interval": 300,
+    "file": "alerts-ecs-infra.json"
+  },
+  {
+    "group": "alerts-mq",
+    "rules": 6,
+    "interval": 300,
+    "file": "alerts-mq.json"
+  },
+  {
+    "group": "alerts-nlb",
+    "rules": 1,
+    "interval": 300,
+    "file": "alerts-nlb.json"
+  },
+  {
+    "group": "alerts-rds",
+    "rules": 12,
+    "interval": 300,
+    "file": "alerts-rds.json"
+  },
+  {
+    "group": "alerts-redis",
+    "rules": 10,
+    "interval": 300,
+    "file": "alerts-redis.json"
+  }
+]

@@ -1,0 +1,158 @@
+# Example monitoring inventory (demo).
+# Generated shape matches generate_inventory.py. Do not hand-edit resource lists
+# if you regenerate from AWS; for this demo repo the inventory is intentionally small.
+# ECS services: 5, LBs: 3, RDS: 2, Redis: 2, MQ: 1
+
+inventory:
+  grafana_url: https://grafana.example.com
+  folder_uid: example-folder
+  datasource_uid: example-cloudwatch
+  region: us-west-1
+  rule_prefix: alerts-
+  contact_point: engineering-alerts
+  ecs_cluster_filter: (?i)(app-|infra)
+  ecs_services:
+  - name: alpha-api
+    cluster: app-alpha
+    service: alpha-api
+    desired_count: 2
+    running_count: 2
+  - name: alpha-worker
+    cluster: app-alpha
+    service: alpha-worker
+    desired_count: 1
+    running_count: 1
+  - name: beta-api
+    cluster: app-beta
+    service: beta-api
+    desired_count: 2
+    running_count: 2
+  - name: beta-worker
+    cluster: app-beta
+    service: beta-worker
+    desired_count: 1
+    running_count: 1
+  - name: infra-monitoring
+    cluster: infra
+    service: infra-monitoring
+    desired_count: 1
+    running_count: 1
+  ecs_canary_services:
+  - infra-monitoring
+  load_balancers:
+  - name: nlb-infra
+    type: network
+    cw_dimension: net/nlb-infra/0000000000000000
+    scheme: internal
+    target_count: 2
+    api_facing: false
+  - name: alb-internal
+    type: application
+    cw_dimension: app/alb-internal/0000000000000001
+    scheme: internal
+    target_count: 2
+    api_facing: false
+  - name: alb-public
+    type: application
+    cw_dimension: app/alb-public/0000000000000002
+    scheme: internet-facing
+    target_count: 2
+    api_facing: false
+  rds_clusters:
+  - name: db-primary-writer
+    cluster: db-primary
+    instance: db-primary-writer
+    instance_class: db.r7g.large
+    engine: aurora-mysql
+    max_allocated_memory_gib: 16.0
+    computed_warning_freeable_memory_bytes: 3435973836.8
+    computed_critical_freeable_memory_bytes: 1717986918.4
+    aurora_auto_scaling_storage: true
+    allocated_storage_gib: 1
+    memory_baseline: needs_baseline
+    storage_baseline: needs_baseline
+  - name: db-auth
+    cluster: db-auth
+    instance: db-auth
+    instance_class: db.t3.medium
+    engine: mariadb
+    max_allocated_memory_gib: 4.0
+    computed_warning_freeable_memory_bytes: 858993459.2
+    computed_critical_freeable_memory_bytes: 429496729.6
+    aurora_auto_scaling_storage: false
+    allocated_storage_gib: 200
+    memory_baseline: needs_baseline
+    storage_baseline: needs_baseline
+  redis_groups:
+  - name: cache-alpha-001
+    replication_group: cache-alpha
+    cache_cluster_id: cache-alpha-001
+  - name: cache-beta-001
+    replication_group: cache-beta
+    cache_cluster_id: cache-beta-001
+  mq_brokers:
+  - name: mq-main
+    broker_id: b-00000000-0000-0000-0000-000000000000
+  dashboards:
+    ecs:
+      uid: example-ecs
+      slug: aws-ecs
+      vars:
+        region: region
+        cluster: cluster
+        service: service
+      panels:
+      - 1
+      - 2
+      - 6
+      - 7
+      needs_panel_verification: true
+    alb:
+      uid: example-alb
+      slug: aws-alb-elb-monitoring-dashboard
+      vars:
+        region: Region
+        lb: LB
+      panels:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 7
+      needs_panel_verification: true
+    rds:
+      uid: example-rds
+      slug: aws-rds
+      vars:
+        region: region
+        db_cluster: db_cluster
+        db_instance: db_instance
+      panels:
+      - 4
+      - 21
+      - 10
+      needs_panel_verification: true
+    redis:
+      uid: example-redis
+      slug: aws-redis
+      vars:
+        region: region
+        redis_cluster: RedisCluster
+      panels:
+      - 60
+      needs_panel_verification: true
+    mq:
+      uid: example-mq
+      slug: aws-rabbitmq
+      vars:
+        region: region
+        broker: broker
+      panels:
+      - 1
+      - 2
+      needs_panel_verification: true
+    api:
+      uid: null
+      slug: null
+      needs_dashboard_follow_up: true
+      fallback_dashboard: alb

@@ -1,0 +1,393 @@
+{
+  "count": 62,
+  "unique_uids": 62,
+  "rule_groups": 9,
+  "sha256": "2cf410c0e6c705f82cd3f7f42855c7294d5c26c915adeb38da52b0a0fb1c09f2",
+  "paused": 0,
+  "by_resource_type": {
+    "alb": 12,
+    "ecs_service": 20,
+    "mq": 6,
+    "nlb": 2,
+    "rds": 12,
+    "redis": 10
+  },
+  "by_severity": {
+    "critical": 32,
+    "warning": 30
+  },
+  "rules": [
+    {
+      "uid": "dfa63f01e499",
+      "title": "alerts-alb-5xx-warning-alb-internal",
+      "sha256": "49ae64419a7174bd6b1fb5974a8f6e9b91b38430ad48533a8c8e1691faa9e39f",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "61b100d00daa",
+      "title": "alerts-alb-5xx-warning-alb-public",
+      "sha256": "cb03eb6aad59a04d9d18774fc0a1ffa1f68170d7a5d3bd5b22f3a8248789bb7d",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "0c817c4f424e",
+      "title": "alerts-alb-5xx-critical-alb-internal",
+      "sha256": "bb66427f5698b494d133d4cdbf4fe82c440c208c3d22bcc5959ed69889877da7",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "4c61b4c21526",
+      "title": "alerts-alb-5xx-critical-alb-public",
+      "sha256": "ed90cbad37e5654ff846bba908bbf9c3c627f71dc70e94ef28b5eed1cd7ff825",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "9fb01ce8ba83",
+      "title": "alerts-alb-latency-p99-warning-alb-internal",
+      "sha256": "298dbdbb52ddba32bc1e5050c1b97b8f79c9730bee9cf23a3d50f0600a024765",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "a27f3dc4cc26",
+      "title": "alerts-alb-latency-p99-warning-alb-public",
+      "sha256": "999fba2a03f6d06526a985601592d2221814e190b88c1d80683d6dce1fb766a0",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "19346330b7f9",
+      "title": "alerts-alb-latency-p99-critical-alb-internal",
+      "sha256": "bd8160986dcb512d7e79cf0f1c5eccc9e6469f69aeffa394548e618328baf594",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "65f6702e9e54",
+      "title": "alerts-alb-latency-p99-critical-alb-public",
+      "sha256": "9a51c423bb98172d9a3171fe65581a385102a5d0a70f53c9b3002278bc026187",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "5e71e1d33665",
+      "title": "alerts-alb-unhealthy-warning-alb-internal",
+      "sha256": "b0a62fc45b1e52d0610655c63625872fb36f09a170ac87891ad7f62512035305",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "8dac22d8cd1e",
+      "title": "alerts-alb-unhealthy-warning-alb-public",
+      "sha256": "bd7ab26bcb596a9aa6b70e39b6c70f7b7f8a03a294ad649bb4c2a6915812daa2",
+      "ruleGroup": "alerts-alb"
+    },
+    {
+      "uid": "26efb3574e3b",
+      "title": "alerts-alb-unhealthy-critical-alb-internal",
+      "sha256": "56e18013c308bfbdc85449be533eaf16660fc2684f5bc9ce52acece4d363d3c5",
+      "ruleGroup": "alerts-availability-critical"
+    },
+    {
+      "uid": "4042b1fd06b0",
+      "title": "alerts-alb-unhealthy-critical-alb-public",
+      "sha256": "b16268afe4ff0b5ebfab1fd9af20fd09202a71a9e3736297597485aefa34663d",
+      "ruleGroup": "alerts-availability-critical"
+    },
+    {
+      "uid": "45209194ff94",
+      "title": "alerts-nlb-unhealthy-warning-nlb-infra",
+      "sha256": "03b6dfcc1c6834470d56f77f56813b3ed2224fab5512abedf6f1795fd9251ef7",
+      "ruleGroup": "alerts-nlb"
+    },
+    {
+      "uid": "562571e23ca7",
+      "title": "alerts-nlb-unhealthy-critical-nlb-infra",
+      "sha256": "9cbdccbf86743203a73de3b4562f6cc653fdd95650103f32c37e9b350c49dfbf",
+      "ruleGroup": "alerts-availability-critical"
+    },
+    {
+      "uid": "94338a917947",
+      "title": "alerts-ecs-cpu-warning-infra-infra-monitoring",
+      "sha256": "b717482d970e5a5449775a98b7a51c1f33c4f4c6d2d34c3b599bad468b319b00",
+      "ruleGroup": "alerts-ecs-infra"
+    },
+    {
+      "uid": "06b1f8738c55",
+      "title": "alerts-ecs-cpu-critical-infra-infra-monitoring",
+      "sha256": "279e7e262968f2e6a4c69aed11f6a711388decb573489453c0dfcb9d8e079feb",
+      "ruleGroup": "alerts-ecs-infra"
+    },
+    {
+      "uid": "4e30c75c3c58",
+      "title": "alerts-ecs-memory-warning-infra-infra-monitoring",
+      "sha256": "159e1ae4898b47ab565181bef2e65cc5ef6b321eea021e0482633dafee89aefe",
+      "ruleGroup": "alerts-ecs-infra"
+    },
+    {
+      "uid": "d72d7dda82c4",
+      "title": "alerts-ecs-memory-critical-infra-infra-monitoring",
+      "sha256": "02c29cd5f159e94b322a75a591390075ce516de9aee979170d14199afa4d1df8",
+      "ruleGroup": "alerts-ecs-infra"
+    },
+    {
+      "uid": "210cb6291d0d",
+      "title": "alerts-ecs-cpu-warning-batch3-app-alpha-alpha-api",
+      "sha256": "e3b32f708fe6713a2c2601bf13a9961f3eceabb52ba1720b1646ce36aeaa4765",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "e0b3a8fe6c17",
+      "title": "alerts-ecs-cpu-warning-batch3-app-alpha-alpha-worker",
+      "sha256": "c838aaf43438c939e05eaa98ba97bf99ff6a1855d1481e3dcdaaf3036efe3798",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "9f5bec531b68",
+      "title": "alerts-ecs-cpu-warning-batch3-app-beta-beta-api",
+      "sha256": "5450c18c7902f4660932456dbee38d626036737f8f3c14760fb68ca8265ed7cd",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "41c416cec908",
+      "title": "alerts-ecs-cpu-warning-batch3-app-beta-beta-worker",
+      "sha256": "e7ca15b315602c1df7eacb1e2eb93bc141a67fe5b552c8f9478cc80785578a2d",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "95a72a150216",
+      "title": "alerts-ecs-cpu-critical-batch3-app-alpha-alpha-api",
+      "sha256": "27905d7dc8df03f3fd0479bb86343af5fc64399404867f36dbf4aca3e4f21f04",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "589c6a70c222",
+      "title": "alerts-ecs-cpu-critical-batch3-app-alpha-alpha-worker",
+      "sha256": "00caf04a9217e71f03a6f919e0a52e2aa4755d74c9bc159a11404995976a6d06",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "5d496f40b139",
+      "title": "alerts-ecs-cpu-critical-batch3-app-beta-beta-api",
+      "sha256": "09d68e85f8a8f77426694e191ec2a5e48cf8edbea9a91d527d8aac7bb5db97d1",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "2626deb69274",
+      "title": "alerts-ecs-cpu-critical-batch3-app-beta-beta-worker",
+      "sha256": "d14d11ab387f742135169809f12e8533382859fec6c81c5471d7a511db3a302b",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "7bef7c2435f7",
+      "title": "alerts-ecs-memory-warning-batch3-app-alpha-alpha-api",
+      "sha256": "9556cf6852c582f33ab2e027a49f852c0c2f60a146be95a7ebe12aafd06bc287",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "785ae6a7ea6f",
+      "title": "alerts-ecs-memory-warning-batch3-app-alpha-alpha-worker",
+      "sha256": "fd24324f4599aae36f826a78a45f7643b447fe8438c0779a8f4c69fa8d015eff",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "26d30079030b",
+      "title": "alerts-ecs-memory-warning-batch3-app-beta-beta-api",
+      "sha256": "9bcb910d5d3ee1bee33f4340ace7061f50c1439c850fa477769ad48afcd30a8a",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "f32776dac4ef",
+      "title": "alerts-ecs-memory-warning-batch3-app-beta-beta-worker",
+      "sha256": "7063b72e8d7f057cd29cfc431b05d4adec8cbda14521fa52127a64fd0b1dfea3",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "ff3abac58787",
+      "title": "alerts-ecs-memory-critical-batch3-app-alpha-alpha-api",
+      "sha256": "39b1d61ef324579f29e0cf2f08976b1481ce8d4e4094ad5b83f0f61bf2d5f2fa",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "a91646f5c958",
+      "title": "alerts-ecs-memory-critical-batch3-app-alpha-alpha-worker",
+      "sha256": "3cff64f56f73d408854bc21563b834cffb1e0daca65cb0d24e2d46075dc942fb",
+      "ruleGroup": "alerts-ecs-app-alpha"
+    },
+    {
+      "uid": "8a62120ae740",
+      "title": "alerts-ecs-memory-critical-batch3-app-beta-beta-api",
+      "sha256": "3a4e647baf03fc063d04df9930f6a237312cfeecbaff31cdc783aa30a6ce5e1f",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "1d9bd0ab381d",
+      "title": "alerts-ecs-memory-critical-batch3-app-beta-beta-worker",
+      "sha256": "fc9455a91d076296f198f46a5d4faed38c69353f07e890f9c43801458077b6ec",
+      "ruleGroup": "alerts-ecs-app-beta"
+    },
+    {
+      "uid": "9923aa357375",
+      "title": "alerts-rds-cpu-warning-db-primary-writer",
+      "sha256": "9b8501ca3b550e263dfb346a0298e53384848c940b2d0b7cc9a8d54358a9c494",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "dcd5d6aa2e72",
+      "title": "alerts-rds-cpu-warning-db-auth",
+      "sha256": "5298a90ba221007f5607124e7047c527c5fb306a32b0337005fe6b94512f4fc7",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "65630546524a",
+      "title": "alerts-rds-cpu-critical-db-primary-writer",
+      "sha256": "de4d198c03a522012c9570098ab4b6f6a5709909eaf49298452a127efc3969a9",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "60d7f20fa83b",
+      "title": "alerts-rds-cpu-critical-db-auth",
+      "sha256": "66f2ee1fec5052c4b2f09d7657dc0abe2ee60469d085136998cdb990e8b631d3",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "b63d80f01a61",
+      "title": "alerts-rds-freeable-memory-warning-db-primary-writer",
+      "sha256": "2af6f440654cb611facf5a71e55467dbb3b5bc4abf320547e1a9e639feba93de",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "401996462118",
+      "title": "alerts-rds-freeable-memory-warning-db-auth",
+      "sha256": "4cd92b0087545543d0ad095a3032bbef636f48d633208ae3fe368bd845f3ab8f",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "5b977588bcf8",
+      "title": "alerts-rds-freeable-memory-critical-db-primary-writer",
+      "sha256": "8d2707f3054eda240a9c50388541b725bb8d57829b8eaf3514ddbeb39de007f5",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "6f8178f11e5e",
+      "title": "alerts-rds-freeable-memory-critical-db-auth",
+      "sha256": "5fe15881de6ccffd1be28c300bdc6076c3b4c7c5f06acf4090bfa68087da57d0",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "cf14e3f125d9",
+      "title": "alerts-rds-connections-warning-db-primary-writer",
+      "sha256": "6921d54f1b96b8a55fc820dccf980b7f57a09b6a625e7c04f93a0a9d3642d88e",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "c2273931b122",
+      "title": "alerts-rds-connections-warning-db-auth",
+      "sha256": "c91d629f198b3b97bb9df53298fb528570a42493a54e1e9cd6916103a6b1434d",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "8395db5ea29e",
+      "title": "alerts-rds-connections-critical-db-primary-writer",
+      "sha256": "094047c7edf28e22a749dc88357ec8af972944109b922146508b6041f9e91af9",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "564510b9d673",
+      "title": "alerts-rds-connections-critical-db-auth",
+      "sha256": "18c2d7d3a6b26c50b7ae9f97fb8ad04a840a37a24abde504320a6381c8a2f584",
+      "ruleGroup": "alerts-rds"
+    },
+    {
+      "uid": "dab440efc9b0",
+      "title": "alerts-redis-cpu-critical-cache-alpha-001",
+      "sha256": "73dde45ba131db5a71206291237d33f3069abb6cb6e1aca594b0491a24ba8ea6",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "2ba102184acd",
+      "title": "alerts-redis-cpu-critical-cache-beta-001",
+      "sha256": "8ca40c983b975fef4e27537eedc79e9ff19b90d95f30843a522b85919ea06cfd",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "c32ac23df41f",
+      "title": "alerts-redis-engine-cpu-critical-cache-alpha-001",
+      "sha256": "577d82013189b421632630ae18a3f22d6694ff08b6e2e68642efae5078777511",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "8f950fafb89d",
+      "title": "alerts-redis-engine-cpu-critical-cache-beta-001",
+      "sha256": "2261dbfaadf76119db98592ea4bb3ab3e5a51d1711c1a96d2e4e7bd6772bdd96",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "a1dfa98c29cb",
+      "title": "alerts-redis-memory-warning-cache-alpha-001",
+      "sha256": "6d0823767248f9cef6cefce24dd5fad1e2068add9073d7ee10128d737426f0c0",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "9d37409789ab",
+      "title": "alerts-redis-memory-warning-cache-beta-001",
+      "sha256": "32b70e1b1c89f008d78d3acdfdb3cc2c8290d32bf25c25c6104ec073c069a3fa",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "f416e771775b",
+      "title": "alerts-redis-memory-critical-cache-alpha-001",
+      "sha256": "99a8d2c80bdff51b6d3e7b3bce8e56c2197899f5d5cb4853279ed9b1f2a0f521",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "cd68527f1277",
+      "title": "alerts-redis-memory-critical-cache-beta-001",
+      "sha256": "2a68e686e19f1c553a7b8394f235979a3566dafa455a418efae0ab28d5df0d80",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "093dbbc1e73a",
+      "title": "alerts-redis-evictions-warning-cache-alpha-001",
+      "sha256": "8ca7c0d43bf41c337813b1b462f4fe1d9e346ead11a98ec5038008c356b32920",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "57be8f21bdad",
+      "title": "alerts-redis-evictions-warning-cache-beta-001",
+      "sha256": "d039360138828e5c6d4d5749f1e73ef6aaf83c62f7c07cec5ca9a254e6adfa45",
+      "ruleGroup": "alerts-redis"
+    },
+    {
+      "uid": "1b23c31e4b10",
+      "title": "alerts-mq-cpu-warning-mq-main",
+      "sha256": "7e70c18beb4e4eb71e38a46f962c9e7ed705bfdc6f1e1bc53be6f1f34e4d7298",
+      "ruleGroup": "alerts-mq"
+    },
+    {
+      "uid": "299bff796e01",
+      "title": "alerts-mq-cpu-critical-mq-main",
+      "sha256": "9fa0508d53f277ce48e4958c29393000e1f4c02d25862a21e5d8c27c9417f918",
+      "ruleGroup": "alerts-mq"
+    },
+    {
+      "uid": "2ebc7c05baed",
+      "title": "alerts-mq-connections-warning-mq-main",
+      "sha256": "595adfad98c3bd6f819e72eda99b9ab587c165c8c418bb8fd0a75f2efb00fd32",
+      "ruleGroup": "alerts-mq"
+    },
+    {
+      "uid": "fe7707aa871b",
+      "title": "alerts-mq-connections-critical-mq-main",
+      "sha256": "02190670fa74ca92ffd22c16fee17e290b3675d877c6c700b7f7d5121a0b96d8",
+      "ruleGroup": "alerts-mq"
+    },
+    {
+      "uid": "9d02c40ae371",
+      "title": "alerts-mq-memory-warning-mq-main",
+      "sha256": "7fec8fbb955ead1db64e1383ca5f6121267a8aa5ed6a0287ec55285ba176003b",
+      "ruleGroup": "alerts-mq"
+    },
+    {
+      "uid": "44e39a570060",
+      "title": "alerts-mq-memory-critical-mq-main",
+      "sha256": "be20f5c543ec3a8a73b0a633de5d921b1bad8592102d65116dc517f7b7bb913e",
+      "ruleGroup": "alerts-mq"
+    }
+  ]
+}

@@ -1,0 +1,651 @@
+{
+  "title": "alerts-ecs-infra",
+  "folderUid": "example-folder",
+  "interval": 300,
+  "rules": [
+    {
+      "uid": "94338a917947",
+      "title": "alerts-ecs-cpu-warning-infra-infra-monitoring",
+      "ruleGroup": "alerts-ecs-infra",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "ClusterName": "infra",
+              "ServiceName": "infra-monitoring"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "CPUUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/ECS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    70.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ECS CPU warning for infra-monitoring on infra",
+        "description": "CloudWatch AWS/ECS/CPUUtilization is gt 70.0 for infra-monitoring.",
+        "__dashboardUid__": "example-ecs",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-ecs/aws-ecs?var-region=us-west-1&var-cluster=infra&var-service=infra-monitoring&orgId=1&viewPanel=1",
+        "runbook": "Check ECS service infra-monitoring on cluster infra in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 70.0 over 3m (AWS/ECS/CPUUtilization, Average)",
+        "metric": "CPUUtilization",
+        "threshold": "Above 70%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "ecs",
+        "severity": "warning",
+        "resource": "infra-monitoring",
+        "ClusterName": "infra",
+        "ServiceName": "infra-monitoring",
+        "apply_batch": "2"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "06b1f8738c55",
+      "title": "alerts-ecs-cpu-critical-infra-infra-monitoring",
+      "ruleGroup": "alerts-ecs-infra",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "ClusterName": "infra",
+              "ServiceName": "infra-monitoring"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "CPUUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/ECS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    85.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "ECS CPU critical for infra-monitoring on infra",
+        "description": "CloudWatch AWS/ECS/CPUUtilization is gt 85.0 for infra-monitoring.",
+        "__dashboardUid__": "example-ecs",
+        "__panelId__": "2",
+        "dashboard_url": "https://grafana.example.com/d/example-ecs/aws-ecs?var-region=us-west-1&var-cluster=infra&var-service=infra-monitoring&orgId=1&viewPanel=2",
+        "runbook": "Check ECS service infra-monitoring on cluster infra in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 85.0 over 2m (AWS/ECS/CPUUtilization, Average)",
+        "metric": "CPUUtilization",
+        "threshold": "Above 85%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "ecs",
+        "severity": "critical",
+        "resource": "infra-monitoring",
+        "ClusterName": "infra",
+        "ServiceName": "infra-monitoring",
+        "apply_batch": "2"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "4e30c75c3c58",
+      "title": "alerts-ecs-memory-warning-infra-infra-monitoring",
+      "ruleGroup": "alerts-ecs-infra",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "ClusterName": "infra",
+              "ServiceName": "infra-monitoring"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "MemoryUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/ECS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    70.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ECS memory warning for infra-monitoring on infra",
+        "description": "CloudWatch AWS/ECS/MemoryUtilization is gt 70.0 for infra-monitoring.",
+        "__dashboardUid__": "example-ecs",
+        "__panelId__": "6",
+        "dashboard_url": "https://grafana.example.com/d/example-ecs/aws-ecs?var-region=us-west-1&var-cluster=infra&var-service=infra-monitoring&orgId=1&viewPanel=6",
+        "runbook": "Check ECS service infra-monitoring on cluster infra in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 70.0 over 3m (AWS/ECS/MemoryUtilization, Average)",
+        "metric": "MemoryUtilization",
+        "threshold": "Above 70%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "ecs",
+        "severity": "warning",
+        "resource": "infra-monitoring",
+        "ClusterName": "infra",
+        "ServiceName": "infra-monitoring",
+        "apply_batch": "2"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "d72d7dda82c4",
+      "title": "alerts-ecs-memory-critical-infra-infra-monitoring",
+      "ruleGroup": "alerts-ecs-infra",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "ClusterName": "infra",
+              "ServiceName": "infra-monitoring"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "MemoryUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/ECS",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    85.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "ECS memory critical for infra-monitoring on infra",
+        "description": "CloudWatch AWS/ECS/MemoryUtilization is gt 85.0 for infra-monitoring.",
+        "__dashboardUid__": "example-ecs",
+        "__panelId__": "7",
+        "dashboard_url": "https://grafana.example.com/d/example-ecs/aws-ecs?var-region=us-west-1&var-cluster=infra&var-service=infra-monitoring&orgId=1&viewPanel=7",
+        "runbook": "Check ECS service infra-monitoring on cluster infra in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 85.0 over 2m (AWS/ECS/MemoryUtilization, Average)",
+        "metric": "MemoryUtilization",
+        "threshold": "Above 85%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "ecs",
+        "severity": "critical",
+        "resource": "infra-monitoring",
+        "ClusterName": "infra",
+        "ServiceName": "infra-monitoring",
+        "apply_batch": "2"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    }
+  ]
+}

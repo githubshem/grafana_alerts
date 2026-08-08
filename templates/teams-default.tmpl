@@ -1,0 +1,110 @@
+{{ define "teams-default.title" }}
+{{- if gt (len .Alerts.Firing) 0 -}}
+{{- $a := index .Alerts.Firing 0 -}}
+{{- $severity := $a.Labels.severity -}}
+{{- if not $severity -}}{{- $severity = .CommonLabels.severity -}}{{- end -}}
+{{- if not $severity -}}{{- $severity = "-" -}}{{- end -}}
+{{- $resource := $a.Labels.resource -}}
+{{- if not $resource -}}{{- $resource = .CommonLabels.resource -}}{{- end -}}
+{{- if not $resource -}}{{- $resource = "-" -}}{{- end -}}
+{{- $alertType := $a.Annotations.summary -}}
+{{- if $alertType -}}{{- $alertType = reReplaceAll `\[no value\]` "" $alertType -}}{{- end -}}
+{{- if not $alertType -}}{{- $alertType = $a.Labels.alertname -}}{{- end -}}
+{{- if not $alertType -}}{{- $alertType = "-" -}}{{- end -}}
+🚨 [{{ $severity }}] {{ $alertType }} - {{ $resource }}
+{{- else if gt (len .Alerts.Resolved) 0 -}}
+{{- $a := index .Alerts.Resolved 0 -}}
+{{- $severity := $a.Labels.severity -}}
+{{- if not $severity -}}{{- $severity = .CommonLabels.severity -}}{{- end -}}
+{{- if not $severity -}}{{- $severity = "-" -}}{{- end -}}
+{{- $resource := $a.Labels.resource -}}
+{{- if not $resource -}}{{- $resource = .CommonLabels.resource -}}{{- end -}}
+{{- if not $resource -}}{{- $resource = "-" -}}{{- end -}}
+{{- $alertType := $a.Annotations.summary -}}
+{{- if $alertType -}}{{- $alertType = reReplaceAll `\[no value\]` "" $alertType -}}{{- end -}}
+{{- if not $alertType -}}{{- $alertType = $a.Labels.alertname -}}{{- end -}}
+{{- if not $alertType -}}{{- $alertType = "-" -}}{{- end -}}
+✅ [{{ $severity }}] {{ $alertType }} - {{ $resource }}
+{{- else -}}
+[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}
+{{- end -}}
+{{ end }}
+
+{{ define "teams-default.message" }}
+{{ range .Alerts.Firing }}
+---
+{{- $severity := .Labels.severity -}}
+{{- if not $severity -}}{{- $severity = $.CommonLabels.severity -}}{{- end -}}
+{{- if not $severity -}}{{- $severity = "-" -}}{{- end -}}
+{{- $resource := .Labels.resource -}}
+{{- if not $resource -}}{{- $resource = $.CommonLabels.resource -}}{{- end -}}
+{{- if not $resource -}}{{- $resource = "-" -}}{{- end -}}
+{{- $environment := .Labels.environment -}}
+{{- if not $environment -}}{{- $environment = .Labels.env -}}{{- end -}}
+{{- if not $environment -}}{{- $environment = $.CommonLabels.environment -}}{{- end -}}
+{{- if not $environment -}}{{- $environment = $.CommonLabels.env -}}{{- end -}}
+{{- if not $environment -}}{{- $environment = "-" -}}{{- end -}}
+{{- $resourceType := .Labels.service_type -}}
+{{- if not $resourceType -}}{{- $resourceType = $.CommonLabels.service_type -}}{{- end -}}
+{{- if not $resourceType -}}{{- $resourceType = "-" -}}{{- end -}}
+{{- $cluster := .Labels.ClusterName -}}
+{{- if not $cluster -}}{{- $cluster = $.CommonLabels.ClusterName -}}{{- end -}}
+{{- if not $cluster -}}{{- $cluster = "-" -}}{{- end -}}
+{{- $service := .Labels.ServiceName -}}
+{{- if not $service -}}{{- $service = $.CommonLabels.ServiceName -}}{{- end -}}
+{{- if not $service -}}{{- $service = "-" -}}{{- end -}}
+{{- $metric := .Annotations.threshold_explanation -}}
+{{- if $metric -}}{{- $metric = reReplaceAll `\s*>.*$` "" $metric -}}{{- else -}}{{- $metric = .Labels.alertname -}}{{- end -}}
+{{- if not $metric -}}{{- $metric = "-" -}}{{- end -}}
+{{- $threshold := .Annotations.threshold_explanation -}}
+{{- if not $threshold -}}{{- $threshold = "-" -}}{{- end -}}
+{{- $runbook := .Annotations.runbook -}}
+{{- if not $runbook -}}{{- $runbook = "-" -}}{{- end -}}
+{{- $dashboard := .Annotations.dashboard_url -}}
+{{- if not $dashboard -}}{{- $dashboard = "-" -}}{{- end -}}
+**Status:** {{ $.Status }}
+**Time UTC:** {{ .StartsAt.Format "2006-01-02 15:04:05 UTC" }}
+**Environment:** {{ $environment }}
+**Resource type:** {{ $resourceType }}
+**Cluster:** {{ $cluster }}
+**Service:** {{ $service }}
+**Metric:** {{ $metric }}
+**Current value:** {{ if index .Values "F" }}{{ index .Values "F" }}{{ else if index .Values "E" }}{{ index .Values "E" }}{{ else if index .Values "D" }}{{ index .Values "D" }}{{ else if index .Values "C" }}{{ index .Values "C" }}{{ else if index .Values "B" }}{{ index .Values "B" }}{{ else if index .Values "A" }}{{ index .Values "A" }}{{ else }}-{{ end }}
+**Threshold:** {{ $threshold }}
+**Runbook:** {{ $runbook }}
+**Dashboard:** {{ $dashboard }}
+
+{{ end }}
+{{ range .Alerts.Resolved }}
+---
+{{- $environment := .Labels.environment -}}
+{{- if not $environment -}}{{- $environment = .Labels.env -}}{{- end -}}
+{{- if not $environment -}}{{- $environment = $.CommonLabels.environment -}}{{- end -}}
+{{- if not $environment -}}{{- $environment = $.CommonLabels.env -}}{{- end -}}
+{{- if not $environment -}}{{- $environment = "-" -}}{{- end -}}
+{{- $resourceType := .Labels.service_type -}}
+{{- if not $resourceType -}}{{- $resourceType = $.CommonLabels.service_type -}}{{- end -}}
+{{- if not $resourceType -}}{{- $resourceType = "-" -}}{{- end -}}
+{{- $cluster := .Labels.ClusterName -}}
+{{- if not $cluster -}}{{- $cluster = $.CommonLabels.ClusterName -}}{{- end -}}
+{{- if not $cluster -}}{{- $cluster = "-" -}}{{- end -}}
+{{- $service := .Labels.ServiceName -}}
+{{- if not $service -}}{{- $service = $.CommonLabels.ServiceName -}}{{- end -}}
+{{- if not $service -}}{{- $service = "-" -}}{{- end -}}
+{{- $metric := .Annotations.threshold_explanation -}}
+{{- if $metric -}}{{- $metric = reReplaceAll `\s*>.*$` "" $metric -}}{{- else -}}{{- $metric = .Labels.alertname -}}{{- end -}}
+{{- if not $metric -}}{{- $metric = "-" -}}{{- end -}}
+{{- $dashboard := .Annotations.dashboard_url -}}
+{{- if not $dashboard -}}{{- $dashboard = "-" -}}{{- end -}}
+**Status:** resolved
+**Time UTC:** {{ .EndsAt.Format "2006-01-02 15:04:05 UTC" }}
+**Environment:** {{ $environment }}
+**Resource type:** {{ $resourceType }}
+**Cluster:** {{ $cluster }}
+**Service:** {{ $service }}
+**Metric:** {{ $metric }}
+**Dashboard:** {{ $dashboard }}
+
+{{ end }}
+_Sent automatically by Grafana Alerting_
+{{ end }}

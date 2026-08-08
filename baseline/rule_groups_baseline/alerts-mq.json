@@ -1,0 +1,1147 @@
+{
+  "title": "alerts-mq",
+  "folderUid": "example-folder",
+  "interval": 300,
+  "rules": [
+    {
+      "uid": "1b23c31e4b10",
+      "title": "alerts-mq-cpu-warning-mq-main",
+      "ruleGroup": "alerts-mq",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "SystemCpuUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    70.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "MQ CPU warning for mq-main",
+        "description": "CloudWatch AWS/AmazonMQ/SystemCpuUtilization is gt 70.0 for mq-main.",
+        "__dashboardUid__": "example-mq",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-mq/aws-rabbitmq?var-region=us-west-1&var-broker=mq-main&orgId=1&viewPanel=1",
+        "runbook": "Check mq mq-main in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 70.0 over 3m (AWS/AmazonMQ/SystemCpuUtilization, Average)",
+        "metric": "SystemCpuUtilization",
+        "threshold": "Above 70%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "mq",
+        "severity": "warning",
+        "resource": "mq-main",
+        "apply_batch": "4"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "299bff796e01",
+      "title": "alerts-mq-cpu-critical-mq-main",
+      "ruleGroup": "alerts-mq",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "SystemCpuUtilization",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    85.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "MQ CPU critical for mq-main",
+        "description": "CloudWatch AWS/AmazonMQ/SystemCpuUtilization is gt 85.0 for mq-main.",
+        "__dashboardUid__": "example-mq",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-mq/aws-rabbitmq?var-region=us-west-1&var-broker=mq-main&orgId=1&viewPanel=1",
+        "runbook": "Check mq mq-main in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 85.0 over 2m (AWS/AmazonMQ/SystemCpuUtilization, Average)",
+        "metric": "SystemCpuUtilization",
+        "threshold": "Above 85%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "mq",
+        "severity": "critical",
+        "resource": "mq-main",
+        "apply_batch": "4"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "2ebc7c05baed",
+      "title": "alerts-mq-connections-warning-mq-main",
+      "ruleGroup": "alerts-mq",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "ConnectionCount",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    500.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "MQ high connection count warning for mq-main",
+        "description": "CloudWatch AWS/AmazonMQ/ConnectionCount is gt 500.0 for mq-main.",
+        "__dashboardUid__": "example-mq",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-mq/aws-rabbitmq?var-region=us-west-1&var-broker=mq-main&orgId=1&viewPanel=1",
+        "runbook": "Check mq mq-main in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 500.0 over 3m (AWS/AmazonMQ/ConnectionCount, Average)",
+        "metric": "ConnectionCount",
+        "threshold": "Above 500 connections",
+        "unit": "count",
+        "unit_label": "connections",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "mq",
+        "severity": "warning",
+        "resource": "mq-main",
+        "apply_batch": "4"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "fe7707aa871b",
+      "title": "alerts-mq-connections-critical-mq-main",
+      "ruleGroup": "alerts-mq",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "ConnectionCount",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    1000.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "MQ high connection count critical for mq-main",
+        "description": "CloudWatch AWS/AmazonMQ/ConnectionCount is gt 1000.0 for mq-main.",
+        "__dashboardUid__": "example-mq",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-mq/aws-rabbitmq?var-region=us-west-1&var-broker=mq-main&orgId=1&viewPanel=1",
+        "runbook": "Check mq mq-main in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 1000.0 over 2m (AWS/AmazonMQ/ConnectionCount, Average)",
+        "metric": "ConnectionCount",
+        "threshold": "Above 1000 connections",
+        "unit": "count",
+        "unit_label": "connections",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "mq",
+        "severity": "critical",
+        "resource": "mq-main",
+        "apply_batch": "4"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "9d02c40ae371",
+      "title": "alerts-mq-memory-warning-mq-main",
+      "ruleGroup": "alerts-mq",
+      "folderUID": "example-folder",
+      "condition": "F",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "RabbitMQMemUsed",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "B",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "RabbitMQMemLimit",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "D",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "D",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "B",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "E",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "E",
+            "type": "math",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "($C / $D) * 100",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        },
+        {
+          "refId": "F",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "F",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "F"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    70.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "E",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "MQ memory warning for mq-main",
+        "description": "CloudWatch AWS/AmazonMQ/RabbitMQMemUsed is gt 70.0 for mq-main.",
+        "__dashboardUid__": "example-mq",
+        "__panelId__": "2",
+        "dashboard_url": "https://grafana.example.com/d/example-mq/aws-rabbitmq?var-region=us-west-1&var-broker=mq-main&orgId=1&viewPanel=2",
+        "runbook": "Check mq mq-main in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "RabbitMQMemUsed / RabbitMQMemLimit > 70%",
+        "metric": "RabbitMQMemUsed",
+        "threshold": "RabbitMQMemUsed / RabbitMQMemLimit > 70%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "E"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "mq",
+        "severity": "warning",
+        "resource": "mq-main",
+        "apply_batch": "4"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "44e39a570060",
+      "title": "alerts-mq-memory-critical-mq-main",
+      "ruleGroup": "alerts-mq",
+      "folderUID": "example-folder",
+      "condition": "F",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "RabbitMQMemUsed",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "B",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "Broker": "mq-main"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "RabbitMQMemLimit",
+            "metricQueryType": 0,
+            "namespace": "AWS/AmazonMQ",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "D",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "D",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "B",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "E",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "E",
+            "type": "math",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "($C / $D) * 100",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        },
+        {
+          "refId": "F",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "F",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "F"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    85.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "E",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "MQ memory critical for mq-main",
+        "description": "CloudWatch AWS/AmazonMQ/RabbitMQMemUsed is gt 85.0 for mq-main.",
+        "__dashboardUid__": "example-mq",
+        "__panelId__": "2",
+        "dashboard_url": "https://grafana.example.com/d/example-mq/aws-rabbitmq?var-region=us-west-1&var-broker=mq-main&orgId=1&viewPanel=2",
+        "runbook": "Check mq mq-main in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "RabbitMQMemUsed / RabbitMQMemLimit > 85%",
+        "metric": "RabbitMQMemUsed",
+        "threshold": "RabbitMQMemUsed / RabbitMQMemLimit > 85%",
+        "unit": "percent",
+        "unit_label": "",
+        "value_ref": "E"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "mq",
+        "severity": "critical",
+        "resource": "mq-main",
+        "apply_batch": "4"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    }
+  ]
+}

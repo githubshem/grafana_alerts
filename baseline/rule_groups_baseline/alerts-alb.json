@@ -1,0 +1,1587 @@
+{
+  "title": "alerts-alb",
+  "folderUid": "example-folder",
+  "interval": 300,
+  "rules": [
+    {
+      "uid": "dfa63f01e499",
+      "title": "alerts-alb-5xx-warning-alb-internal",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-internal/0000000000000001"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "HTTPCode_Target_5XX_Count",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Sum"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    10.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ALB 5xx warning for alb-internal",
+        "description": "CloudWatch AWS/ApplicationELB/HTTPCode_Target_5XX_Count is gt 10.0 for alb-internal.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-internal%2F0000000000000001&orgId=1&viewPanel=1",
+        "runbook": "Check alb alb-internal in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 10.0 over 3m (AWS/ApplicationELB/HTTPCode_Target_5XX_Count, Sum)",
+        "metric": "HTTPCode_Target_5XX_Count",
+        "threshold": "Above 10 responses",
+        "unit": "count",
+        "unit_label": "responses",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "warning",
+        "resource": "alb-internal",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "61b100d00daa",
+      "title": "alerts-alb-5xx-warning-alb-public",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-public/0000000000000002"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "HTTPCode_Target_5XX_Count",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Sum"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    10.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ALB 5xx warning for alb-public",
+        "description": "CloudWatch AWS/ApplicationELB/HTTPCode_Target_5XX_Count is gt 10.0 for alb-public.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "1",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-public%2F0000000000000002&orgId=1&viewPanel=1",
+        "runbook": "Check alb alb-public in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 10.0 over 3m (AWS/ApplicationELB/HTTPCode_Target_5XX_Count, Sum)",
+        "metric": "HTTPCode_Target_5XX_Count",
+        "threshold": "Above 10 responses",
+        "unit": "count",
+        "unit_label": "responses",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "warning",
+        "resource": "alb-public",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "0c817c4f424e",
+      "title": "alerts-alb-5xx-critical-alb-internal",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-internal/0000000000000001"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "HTTPCode_Target_5XX_Count",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Sum"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    50.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "ALB 5xx critical for alb-internal",
+        "description": "CloudWatch AWS/ApplicationELB/HTTPCode_Target_5XX_Count is gt 50.0 for alb-internal.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "2",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-internal%2F0000000000000001&orgId=1&viewPanel=2",
+        "runbook": "Check alb alb-internal in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 50.0 over 2m (AWS/ApplicationELB/HTTPCode_Target_5XX_Count, Sum)",
+        "metric": "HTTPCode_Target_5XX_Count",
+        "threshold": "Above 50 responses",
+        "unit": "count",
+        "unit_label": "responses",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "critical",
+        "resource": "alb-internal",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "4c61b4c21526",
+      "title": "alerts-alb-5xx-critical-alb-public",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-public/0000000000000002"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "HTTPCode_Target_5XX_Count",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Sum"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    50.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "ALB 5xx critical for alb-public",
+        "description": "CloudWatch AWS/ApplicationELB/HTTPCode_Target_5XX_Count is gt 50.0 for alb-public.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "2",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-public%2F0000000000000002&orgId=1&viewPanel=2",
+        "runbook": "Check alb alb-public in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 50.0 over 2m (AWS/ApplicationELB/HTTPCode_Target_5XX_Count, Sum)",
+        "metric": "HTTPCode_Target_5XX_Count",
+        "threshold": "Above 50 responses",
+        "unit": "count",
+        "unit_label": "responses",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "critical",
+        "resource": "alb-public",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "9fb01ce8ba83",
+      "title": "alerts-alb-latency-p99-warning-alb-internal",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-internal/0000000000000001"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "TargetResponseTime",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "p99"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    3.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ALB p99 latency warning for alb-internal",
+        "description": "CloudWatch AWS/ApplicationELB/TargetResponseTime is gt 3.0 for alb-internal.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-internal%2F0000000000000001&orgId=1&viewPanel=4",
+        "runbook": "Check alb alb-internal in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 3.0 over 3m (AWS/ApplicationELB/TargetResponseTime, p99)",
+        "metric": "TargetResponseTime",
+        "threshold": "Above 3 s",
+        "unit": "seconds",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "warning",
+        "resource": "alb-internal",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "a27f3dc4cc26",
+      "title": "alerts-alb-latency-p99-warning-alb-public",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-public/0000000000000002"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "TargetResponseTime",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "p99"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    3.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ALB p99 latency warning for alb-public",
+        "description": "CloudWatch AWS/ApplicationELB/TargetResponseTime is gt 3.0 for alb-public.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-public%2F0000000000000002&orgId=1&viewPanel=4",
+        "runbook": "Check alb alb-public in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 3.0 over 3m (AWS/ApplicationELB/TargetResponseTime, p99)",
+        "metric": "TargetResponseTime",
+        "threshold": "Above 3 s",
+        "unit": "seconds",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "warning",
+        "resource": "alb-public",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "19346330b7f9",
+      "title": "alerts-alb-latency-p99-critical-alb-internal",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-internal/0000000000000001"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "TargetResponseTime",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "p99"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    5.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "ALB p99 latency critical for alb-internal",
+        "description": "CloudWatch AWS/ApplicationELB/TargetResponseTime is gt 5.0 for alb-internal.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-internal%2F0000000000000001&orgId=1&viewPanel=4",
+        "runbook": "Check alb alb-internal in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 5.0 over 2m (AWS/ApplicationELB/TargetResponseTime, p99)",
+        "metric": "TargetResponseTime",
+        "threshold": "Above 5 s",
+        "unit": "seconds",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "critical",
+        "resource": "alb-internal",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "65f6702e9e54",
+      "title": "alerts-alb-latency-p99-critical-alb-public",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-public/0000000000000002"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "TargetResponseTime",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "p99"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    5.0
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "2m",
+      "annotations": {
+        "summary": "ALB p99 latency critical for alb-public",
+        "description": "CloudWatch AWS/ApplicationELB/TargetResponseTime is gt 5.0 for alb-public.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "4",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-public%2F0000000000000002&orgId=1&viewPanel=4",
+        "runbook": "Check alb alb-public in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 5.0 over 2m (AWS/ApplicationELB/TargetResponseTime, p99)",
+        "metric": "TargetResponseTime",
+        "threshold": "Above 5 s",
+        "unit": "seconds",
+        "unit_label": "",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "critical",
+        "resource": "alb-public",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "5e71e1d33665",
+      "title": "alerts-alb-unhealthy-warning-alb-internal",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-internal/0000000000000001"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "UnHealthyHostCount",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    0.5
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ALB unhealthy hosts warning for alb-internal",
+        "description": "CloudWatch AWS/ApplicationELB/UnHealthyHostCount is gt 0.5 for alb-internal.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "3",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-internal%2F0000000000000001&orgId=1&viewPanel=3",
+        "runbook": "Check alb alb-internal in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 0.5 over 3m (AWS/ApplicationELB/UnHealthyHostCount, Average)",
+        "metric": "UnHealthyHostCount",
+        "threshold": "At least 1 unhealthy target",
+        "unit": "count",
+        "unit_label": "unhealthy targets",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "warning",
+        "resource": "alb-internal",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    },
+    {
+      "uid": "8dac22d8cd1e",
+      "title": "alerts-alb-unhealthy-warning-alb-public",
+      "ruleGroup": "alerts-alb",
+      "folderUID": "example-folder",
+      "condition": "C",
+      "data": [
+        {
+          "refId": "A",
+          "queryType": "",
+          "relativeTimeRange": {
+            "from": 600,
+            "to": 0
+          },
+          "datasourceUid": "example-cloudwatch",
+          "model": {
+            "refId": "A",
+            "datasource": {
+              "type": "cloudwatch",
+              "uid": "example-cloudwatch"
+            },
+            "dimensions": {
+              "LoadBalancer": "app/alb-public/0000000000000002"
+            },
+            "expression": "",
+            "id": "",
+            "intervalMs": 1000,
+            "label": "",
+            "logGroups": [],
+            "matchExact": true,
+            "maxDataPoints": 43200,
+            "metricEditorMode": 0,
+            "metricName": "UnHealthyHostCount",
+            "metricQueryType": 0,
+            "namespace": "AWS/ApplicationELB",
+            "period": "5m",
+            "queryLanguage": "CWLI",
+            "queryMode": "Metrics",
+            "region": "us-west-1",
+            "sqlExpression": "",
+            "statistic": "Average"
+          }
+        },
+        {
+          "refId": "B",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "B",
+            "type": "reduce",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "expression": "A",
+            "reducer": "mean",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200,
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": []
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": []
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "refId": "C",
+          "queryType": "expression",
+          "relativeTimeRange": {
+            "from": 0,
+            "to": 0
+          },
+          "datasourceUid": "__expr__",
+          "model": {
+            "refId": "C",
+            "type": "threshold",
+            "datasource": {
+              "type": "__expr__",
+              "uid": "__expr__"
+            },
+            "conditions": [
+              {
+                "type": "query",
+                "query": {
+                  "params": [
+                    "C"
+                  ]
+                },
+                "reducer": {
+                  "type": "last",
+                  "params": []
+                },
+                "evaluator": {
+                  "type": "gt",
+                  "params": [
+                    0.5
+                  ]
+                },
+                "operator": {
+                  "type": "and"
+                }
+              }
+            ],
+            "expression": "B",
+            "intervalMs": 1000,
+            "maxDataPoints": 43200
+          }
+        }
+      ],
+      "noDataState": "NoData",
+      "execErrState": "Error",
+      "for": "3m",
+      "annotations": {
+        "summary": "ALB unhealthy hosts warning for alb-public",
+        "description": "CloudWatch AWS/ApplicationELB/UnHealthyHostCount is gt 0.5 for alb-public.",
+        "__dashboardUid__": "example-alb",
+        "__panelId__": "3",
+        "dashboard_url": "https://grafana.example.com/d/example-alb/aws-alb-elb-monitoring-dashboard?var-Region=us-west-1&var-LB=app%2Falb-public%2F0000000000000002&orgId=1&viewPanel=3",
+        "runbook": "Check alb alb-public in us-west-1. Review dashboard, recent deploys, and scaling.",
+        "threshold_explanation": "gt 0.5 over 3m (AWS/ApplicationELB/UnHealthyHostCount, Average)",
+        "metric": "UnHealthyHostCount",
+        "threshold": "At least 1 unhealthy target",
+        "unit": "count",
+        "unit_label": "unhealthy targets",
+        "value_ref": "B"
+      },
+      "labels": {
+        "team": "engineering",
+        "managed_by": "provisioning",
+        "region": "us-west-1",
+        "service_type": "alb",
+        "severity": "warning",
+        "resource": "alb-public",
+        "apply_batch": "1"
+      },
+      "isPaused": false,
+      "notification_settings": {
+        "receiver": "engineering-alerts"
+      }
+    }
+  ]
+}
