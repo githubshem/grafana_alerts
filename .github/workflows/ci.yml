@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Nothing here talks to Grafana, AWS or Teams. No secrets are needed and none
+# are exposed to these jobs.
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: pytest (py${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # README documents 3.13; 3.12 is what the toolkit is developed on.
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run offline test suite
+        run: python -m pytest
+
+  drift:
+    name: zero drift vs baseline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Compile rules (offline)
+        run: python scripts/apply_rules.py --dry-run --output output/compiled_rules.json
+
+      - name: Fail if compiled rules moved away from baseline/
+        # Exits non-zero on any added, removed or changed rule. A deliberate
+        # change means refreshing baseline/compiled_rules.baseline.json in the
+        # same PR, so the diff is reviewable.
+        run: python scripts/compare_baseline.py
+
+      - name: Validate labels, annotations, URLs and UIDs
+        run: python scripts/validate_compiled_rules.py --compiled output/compiled_rules.json --limitation-fix
+
+      - name: Upload compiled rules
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-rules
+          path: |
+            output/compiled_rules.json
+            baseline/rule_diff.json
+          if-no-files-found: warn
+          retention-days: 14

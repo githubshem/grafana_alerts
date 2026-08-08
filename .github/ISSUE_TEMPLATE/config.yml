@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/githubshem/grafana_alerts/security/advisories/new
+    about: >-
+      Report privately, never as a public issue. Redact any tokens or webhook
+      URLs before submitting. See SECURITY.md for scope and response times.

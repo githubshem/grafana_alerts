@@ -1,0 +1,28 @@
+version: 2
+
+updates:
+  # requirements.txt pins lower bounds only (PyYAML, boto3, pytest), so drift
+  # is silent without this.
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+    groups:
+      # One PR per week for the whole set rather than three separate ones.
+      python-dependencies:
+        patterns: ["*"]
+
+  # Keeps actions/checkout, setup-python and upload-artifact from going stale.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "ci"
+    groups:
+      github-actions:
+        patterns: ["*"]
