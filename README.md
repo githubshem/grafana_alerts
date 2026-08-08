@@ -250,3 +250,15 @@ If a refactor breaks it, alert behaviour changed.
 `ecs_clusters` key, only `ecs_services`, so cluster-level ECS rules never
 expand. This is long-standing and preserved deliberately - "fixing" it would
 create new alerts. `tests/test_exclusions.py` pins the behaviour.
+
+---
+
+## Security
+
+Do not open a public issue for a security problem. See [SECURITY.md](SECURITY.md)
+for how to report one privately, what is in scope, and the credential-handling
+assumptions this toolkit relies on.
+
+## License
+
+MIT - see [LICENSE](LICENSE).
